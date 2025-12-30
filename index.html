@@ -3,246 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONFIDENTIAL: PROJECT SHOWELL</title>
+    <title>TOP SECRET: PROJECT FEMBOY-GENERAL</title>
     <style>
         :root {
-            --neon-pink: #ff2a6d;
-            --neon-cyan: #05d9e8;
-            --deep-purple: #1a0b2e;
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --text-main: #d1d1d1;
+            --accent: #ff007a;
+            --accent-glow: rgba(255, 0, 122, 0.5);
+            --secondary: #00f2ff;
+            --bg-dark: #05050a;
+            --card-bg: rgba(15, 15, 25, 0.8);
+            --text-dim: #a0a0b0;
         }
 
         body {
-            background-color: var(--deep-purple);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 42, 109, 0.2) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(5, 217, 232, 0.2) 0%, transparent 40%);
-            color: var(--text-main);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Анимированный фон */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=');
-            opacity: 0.3;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        /* Заголовок с глитч-эффектом */
-        h1.main-title {
-            font-size: 3rem;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 5px;
+            background: var(--bg-dark);
             color: #fff;
-            text-shadow: 
-                2px 2px 0 var(--neon-pink),
-                -2px -2px 0 var(--neon-cyan);
-            margin-bottom: 10px;
-            animation: glitch 3s infinite;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(255, 0, 122, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 0, 122, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        .subtitle {
-            text-align: center;
-            color: var(--neon-cyan);
-            font-family: 'Courier New', monospace;
-            margin-bottom: 50px;
-            font-size: 1.2rem;
+        .scanline {
+            width: 100%; height: 100px; z-index: 10;
+            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, var(--accent-glow) 50%, rgba(0,0,0,0) 100%);
+            opacity: 0.1; position: fixed; top: -100px;
+            animation: scan 4s linear infinite; pointer-events: none;
         }
 
-        /* Карточки с эффектом стекла */
-        .glass-panel {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        @keyframes scan { 0% { top: -100px; } 100% { top: 100%; } }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 60px 20px; position: relative; }
+
+        header { text-align: center; margin-bottom: 80px; }
+        .logo-box { display: inline-block; padding: 10px 20px; border: 2px solid var(--accent); position: relative; }
+        .logo-box::after { content: 'LIVE FEED'; position: absolute; top: -12px; right: 10px; background: var(--accent); font-size: 10px; padding: 2px 5px; }
+
+        h1 { font-size: 3.5rem; letter-spacing: 10px; text-transform: uppercase; margin: 10px 0; color: var(--accent); text-shadow: 0 0 20px var(--accent-glow); }
+
+        .glass-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 2px; /* Угловатый стиль */
+            padding: 40px; margin-bottom: 40px;
+            position: relative; overflow: hidden;
         }
 
-        .glass-panel:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 42, 109, 0.15);
-            border-color: rgba(255, 42, 109, 0.3);
+        .glass-card::before {
+            content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--accent);
         }
 
-        h2 {
-            color: var(--neon-pink);
-            border-bottom: 2px solid var(--glass-border);
-            padding-bottom: 10px;
-            margin-top: 0;
-            font-size: 1.8rem;
-            display: flex;
-            align-items: center;
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .evidence-img { width: 100%; border: 1px solid var(--accent-glow); filter: grayscale(0.3) contrast(1.2); transition: 0.5s; }
+        .evidence-img:hover { filter: grayscale(0); box-shadow: 0 0 30px var(--accent-glow); }
+
+        .tag { background: var(--accent); color: white; padding: 3px 10px; font-size: 12px; font-weight: bold; text-transform: uppercase; margin-right: 10px; }
+        .fact-title { color: var(--secondary); font-size: 1.5rem; margin-top: 0; display: block; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        
+        .detailed-text { font-size: 1.1rem; line-height: 1.8; color: var(--text-dim); text-align: justify; }
+        .highlight { color: #fff; font-weight: bold; border-bottom: 1px solid var(--accent); }
+
+        .verdict-banner {
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            padding: 40px; text-align: center; margin-top: 100px;
         }
 
-        h2::before {
-            content: "►";
-            margin-right: 10px;
-            font-size: 0.8em;
-            color: var(--neon-cyan);
-        }
+        .big-f-word { font-size: 6rem; font-weight: 900; letter-spacing: 20px; margin: 0; text-shadow: 0 0 50px #fff; }
 
-        p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-
-        .highlight {
-            color: var(--neon-cyan);
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(5, 217, 232, 0.5);
-        }
-
-        .img-box {
-            position: relative;
-            margin: 20px 0;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid var(--glass-border);
-        }
-
-        img {
-            width: 100%;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .img-box:hover img {
-            transform: scale(1.02);
-        }
-
-        .analysis-badge {
-            display: inline-block;
-            background: linear-gradient(45deg, var(--neon-pink), #8e2de2);
-            color: white;
-            padding: 5px 15px;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            box-shadow: 0 0 10px var(--neon-pink);
-        }
-
-        /* Финальный вердикт */
-        .verdict-box {
-            text-align: center;
-            border: 3px solid var(--neon-cyan);
-            background: rgba(0, 0, 0, 0.4);
-        }
-
-        .big-text {
-            font-size: 4rem;
-            font-weight: 900;
-            background: -webkit-linear-gradient(var(--neon-cyan), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 20px 0;
-            letter-spacing: 2px;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 60px;
-            padding: 20px;
-            font-family: 'Courier New', monospace;
-            color: rgba(255,255,255,0.4);
-            border-top: 1px solid var(--glass-border);
-        }
-
-        @keyframes glitch {
-            0% { text-shadow: 2px 2px 0 var(--neon-pink), -2px -2px 0 var(--neon-cyan); }
-            25% { text-shadow: -2px 2px 0 var(--neon-pink), 2px -2px 0 var(--neon-cyan); }
-            50% { text-shadow: 2px -2px 0 var(--neon-pink), -2px 2px 0 var(--neon-cyan); }
-            75% { text-shadow: -2px -2px 0 var(--neon-pink), 2px 2px 0 var(--neon-cyan); }
-            100% { text-shadow: 2px 2px 0 var(--neon-pink), -2px -2px 0 var(--neon-cyan); }
-        }
+        footer { text-align: center; padding: 40px; color: #444; font-size: 12px; letter-spacing: 2px; }
     </style>
 </head>
 <body>
+    <div class="scanline"></div>
+    
+    <div class="container">
+        <header>
+            <div class="logo-box"><h1>DOSSIER</h1></div>
+            <p style="color: var(--secondary)">OBJECT: DMITRY "GENERAL SHOWELL" | CLASSIFICATION: ABSOLUTE FEMBOY</p>
+        </header>
 
-<div class="container">
-    <h1 class="main-title">CASE FILE: ЩOWELL</h1>
-    <div class="subtitle">/// СЕКРЕТНОЕ РАССЛЕДОВАНИЕ ОТДЕЛА "EZ RA1D" ///</div>
-
-    <div class="glass-panel">
-        <h2>01. Идентификация Объекта</h2>
-        <div class="analysis-badge">СТАТУС: ПОДОЗРИТЕЛЬНЫЙ</div>
-        <p><strong>Субъект:</strong> Дмитрий (он же "Генерал Щоwell", он же "Лжедмитрий I").</p>
-        <p><strong>Текущая дислокация:</strong> Предположительно скрывается в виртуальном пространстве DCS World.</p>
-        <p><strong>Суть расследования:</strong> На протяжении 9 лет дружбы субъект проявлял скрытые паттерны поведения, которые при детальном анализе складываются в единую картину. Данный сайт призван систематизировать улики и доказать неизбежное: наш генерал скрывает под формой... <em>ушки</em>.</p>
-    </div>
-
-    <div class="glass-panel">
-        <h2>02. Психоанализ Профиля</h2>
-        <div class="img-box">
-            <img src="tg.png" alt="Профиль Telegram">
+        <div class="glass-card">
+            <div class="grid">
+                <div>
+                    <span class="tag">Evidence #01</span>
+                    <h2 class="fact-title">Метафизика Профиля</h2>
+                    <p class="detailed-text">
+                        Анализ профиля <span class="highlight">"Лжедмитрий 1"</span> в Telegram выявил глубокую деконструкцию личности. Называя себя "Лжедмитрием", объект признает свою дуальность. 9 лет дружбы позволили нам заглянуть за ширму: за маской "генерала" скрывается элитарное стремление к эстетике <span class="highlight">femboy-culture</span>. 
+                        <br><br>
+                        Отсутствие личных фото — это не анонимность, это <span class="highlight">интрига</span>. Объект выдерживает паузу, подготавливая аудиторию к неизбежному дебюту в гольфах.
+                    </p>
+                </div>
+                <img src="tg.png" class="evidence-img" alt="TG DATA">
+            </div>
         </div>
-        <p>Обратите внимание на никнейм <span class="highlight">"Лжедмитрий 1"</span>. Исторически Лжедмитрий был самозванцем. Это прямой психологический крик о помощи: <em>"Я не тот, за кого себя выдаю"</em>. Он пытается убедить общество в своей брутальности, используя генеральские звания ("Генерал Щоwell"), но подсознание выдает его через аватарку.</p>
-        <p>Скрытое лицо, мрачные тона — это классическая защита типа "Скорлупа". Что находится внутри скорлупы? Мягкое, ранимое существо, жаждущее тепла и, возможно, программистских носков.</p>
-    </div>
 
-    <div class="glass-panel">
-        <h2>03. Синдром "Виртуального Пилота"</h2>
-        <div class="img-box">
-            <img src="discord.png" alt="Профиль Discord">
+        <div class="glass-card">
+            <div class="grid">
+                <img src="discord.png" class="evidence-img" alt="DC DATA">
+                <div>
+                    <span class="tag">Evidence #02</span>
+                    <h2 class="fact-title">Авиация как сублимация</h2>
+                    <p class="detailed-text">
+                        Объект стримит <strong>DCS World</strong>. Психоанализ показывает: управление истребителем F/A-18C — это жесткая потребность в контроле над сложными системами, что характерно для <span class="highlight">высокоинтеллектуальных фембоев</span> (тип "IT-femboy"). 
+                        <br><br>
+                        Ник <strong>who_askedxd</strong> и канал <strong>"РИНГ 2"</strong> — это явный маркер. "Ринг" намекает на физическую близость, а приписка "генерал" — лишь способ доминировать в виртуальном пространстве, чтобы компенсировать свою мягкую и податливую натуру в реальности.
+                    </p>
+                </div>
+            </div>
         </div>
-        <p>Субъект проводит часы в <strong>DCS World</strong>, пилотируя F/A-18C Hornet. Давайте взглянем правде в глаза.</p>
-        <ul>
-            <li><strong>Кабина пилота:</strong> Тесное, замкнутое пространство, где мужчину обнимают ремни безопасности. Это сублимация желания быть крепко обнятым сильными руками.</li>
-            <li><strong>Голосовой канал "РИНГ 2":</strong> Почему Ринг? Потому что там происходит борьба? Нет. Это место для приватных "спаррингов" с неизвестным напарником.</li>
-            <li><strong>Статус "В ЭФИРЕ":</strong> Эксгибиционистское желание показать, как ловко он управляется с джойстиком (РУС). Символизм здесь зашкаливает.</li>
-        </ul>
-        <p class="highlight">Научный факт: Согласно статистике форумов, 146% пилотов DCS выбирают этот симулятор, чтобы компенсировать отсутствие "второго пилота" в реальной жизни.</p>
+
+        <div class="glass-card">
+            <h2 class="fact-title">Экспертиза и "Теневой Куратор"</h2>
+            <p class="detailed-text">
+                Самая шокирующая улика: Дмитрий обладает аномальными познаниями в области <span class="highlight">различий между фембоями и томбоями</span>. Обычный человек не сможет отличить эстетику пастельных тонов от реверсивной гендерной экспрессии, но Щоwell выдал базу, которая доступна только <span class="highlight">носителю культуры</span>.
+                <br><br>
+                Он утверждает, что информацию ему передал "один человек". В ходе расследования этот субъект получил кодовое имя <span class="highlight">"Парень Щовеля"</span>. Мы официально заявляем: такие глубокие лекции не читаются просто так. Это была передача опыта от наставника к ученику. Генерал уже не просто "в теме", он — магистр ордена.
+            </p>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="fact-title">Социологический отчет</h2>
+            <p class="detailed-text">
+                Статистика взаимодействия с женщинами: <span class="highlight">0.00%</span>. 
+                <br>
+                Наличие отношений с девушками за всю историю наблюдений (9 лет): <span class="highlight">Отрицательное</span>.
+                <br><br>
+                Дмитрий полностью исключил женский фактор из своей жизни, создав идеальный вакуум для трансформации. Его единственная страсть — это "Ринг", авиация и тайные знания, переданные его загадочным "парнем". Это не просто совпадение, это жизненный путь.
+            </p>
+        </div>
+
+        <div class="verdict-banner">
+            <p style="letter-spacing: 5px; margin-bottom: 0;">FINAL VERDICT:</p>
+            <h2 class="big-f-word">FEMBOY</h2>
+            <p style="margin-top: 10px; opacity: 0.8;">CONFIRMED BY EZ RA1D RESEARCH GROUP</p>
+        </div>
+
+        <footer>
+            ADMINISTRATIVE ACCESS ONLY | 2025 | CHEBOKSARY-MOSCOW CONNECTION
+        </footer>
     </div>
-
-    <div class="glass-panel">
-        <h2>04. Знания "Запретных Искусств"</h2>
-        <p>Ключевая улика. Субъект Дмитрий был замечен за чтением лекций на тему <span class="highlight">"Фундаментальные отличия Фембоев от Томбоев"</span>.</p>
-        <p>Обычный мужчина ("Normies vulgaris") не видит разницы. Для него это просто слова из интернета. Но Щоwell знает <em>детали</em>. Он знает <em>нюансы</em>. Он ссылается на "таинственного информатора", которого автор данного досье (ez ra1d) классифицирует как <strong>"Бойфренда Шрёдингера"</strong> — он вроде бы существует только в рассказах, но его влияние на Дмитрия неоспоримо.</p>
-        <blockquote>
-            "Чтобы так хорошо разбираться в теории, нужно постоянно практиковаться." — Зигмунд Фрейд (возможно).
-        </blockquote>
-    </div>
-
-    <div class="glass-panel">
-        <h2>05. Социальный Вакуум</h2>
-        <p>Полное отсутствие женского пола в радиусе поражения. Девушки нет и никогда не было. </p>
-        <p>При этом никнейм в Дискорде <strong>who_askedxd</strong> переводится как "Кто спрашивал?". Это типичное поведение "Цундере" (Tsundere) — <em>"Мне не нужно твое внимание, бака!"</em>. На самом деле, это защитный механизм, чтобы скрыть свою истинную натуру милой мышки.</p>
-    </div>
-
-    <div class="glass-panel verdict-box">
-        <h2>ФИНАЛЬНОЕ ЗАКЛЮЧЕНИЕ</h2>
-        <p>На основе совокупности данных (DCS, глубокие познания лора, аскетизм), система выдает результат с вероятностью 1000%.</p>
-        <div class="big-text">100% MOUSE</div>
-        <p>Диагноз окончательный и обжалованию не подлежит.</p>
-        <p style="font-size: 0.9rem; opacity: 0.7;">Добро пожаловать в клуб, Дима. Мы всё знали.</p>
-    </div>
-
-    <footer>
-        <p>Разработано: <strong>ez ra1d</strong> | Чебоксары — Москва <br> Специально для General Showell</p>
-        <p style="font-size: 0.8em; opacity: 0.5;">Все совпадения случайны (нет).</p>
-    </footer>
-</div>
-
 </body>
 </html>
